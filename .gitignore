@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+# Informes generados (pueden contener datos de tu sistema)
+*.json
+*.html
+report-*.txt
+informe*.*
+!docs/
+!docs/**

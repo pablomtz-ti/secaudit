@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "secaudit"
+dynamic = ["version"]
+description = "Auditor de seguridad defensiva para Linux con detección de cambios respecto a una línea base."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+authors = [{ name = "Pablo Martínez" }]
+keywords = ["security", "audit", "hardening", "linux", "cis", "systemd"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: POSIX :: Linux",
+  "Topic :: Security",
+  "Topic :: System :: Systems Administration",
+  "Environment :: Console",
+]
+dependencies = []
+
+[project.scripts]
+secaudit = "secaudit:cli"
+
+[project.urls]
+Homepage = "https://github.com/pablomtz-ti/secaudit"
+
+[tool.setuptools]
+py-modules = ["secaudit"]
+
+[tool.setuptools.dynamic]
+version = { attr = "secaudit.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

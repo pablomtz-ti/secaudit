@@ -1,0 +1,38 @@
+[Unit]
+Description=Auditoría de seguridad defensiva (secaudit)
+Documentation=file:/etc/secaudit/secaudit.conf
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/secaudit-run.sh
+
+# Prioridad baja: la auditoría no debe competir con la carga real del sistema.
+Nice=10
+IOSchedulingClass=idle
+CPUSchedulingPolicy=batch
+TimeoutStartSec=900
+
+# --- Endurecimiento ---------------------------------------------------------
+# La herramienta SOLO lee el estado del sistema y escribe en /var/lib/secaudit.
+# Por eso podemos dejar todo el sistema de archivos en solo-lectura salvo ese
+# directorio, sin romper ninguna comprobación.
+ProtectSystem=strict
+ReadWritePaths=/var/lib/secaudit
+ProtectHome=read-only
+NoNewPrivileges=true
+ProtectClock=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=false
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+# Nota: se ejecuta como root (UID 0) porque necesita leer /etc/shadow, verificar
+# integridad de paquetes y leer registros de autenticación. No se sandboxea con
+# PrivateTmp ni espacios de nombres que oculten /tmp, /proc o /dev, porque eso
+# cegaría comprobaciones (rootkits en /tmp, procesos ocultos en /proc, etc.).
+
+[Install]
+WantedBy=multi-user.target

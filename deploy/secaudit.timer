@@ -1,0 +1,20 @@
+[Unit]
+Description=Programa la auditoría de seguridad secaudit
+Documentation=file:/etc/secaudit/secaudit.conf
+
+[Timer]
+# Frecuencia de la auditoría. Cambia OnCalendar a tu gusto:
+#   daily              -> cada día a medianoche
+#   weekly             -> lunes a medianoche (valor por defecto)
+#   *-*-* 03:00:00     -> todos los días a las 03:00
+#   Mon,Thu 02:00      -> lunes y jueves a las 02:00
+OnCalendar=weekly
+
+# Recupera ejecuciones perdidas si el equipo estaba apagado a la hora prevista.
+Persistent=true
+
+# Reparte la carga: arranca en un momento aleatorio dentro de la hora siguiente.
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target

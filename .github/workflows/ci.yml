@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Instalar el paquete y las herramientas de test
+        run: pip install . pytest ruff
+      - name: Lint (ruff)
+        run: ruff check --select E9,F secaudit.py tests
+      - name: Tests
+        run: pytest -q
+      - name: Prueba de humo del comando instalado (sin root)
+        run: |
+          secaudit --version
+          secaudit --only system,kernel,ports,path,mounts --quiet --no-color --json out.json || [ $? -eq 1 ]
+          secaudit --only system,kernel,ports,path,mounts --quiet --no-color --diff out.json
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: ShellCheck
+        run: shellcheck install.sh uninstall.sh deploy/*.sh
