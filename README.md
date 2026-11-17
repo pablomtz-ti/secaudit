@@ -3,7 +3,7 @@
 Auditor de seguridad defensiva para Linux con detección de cambios. Revisa 25 áreas de hardening, guarda una línea base del sistema y, desplegado como servicio de systemd, avisa cuando aparece algo nuevo: un binario SUID, un puerto expuesto, una regla de sudo o un binario del sistema alterado.
 
 [![CI](https://github.com/pablomtz-ti/secaudit/actions/workflows/ci.yml/badge.svg)](https://github.com/pablomtz-ti/secaudit/actions/workflows/ci.yml)
-![Python](https://img.shields.io/badge/python-3.9%2B-blue)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Dependencias](https://img.shields.io/badge/dependencias-ninguna-brightgreen)
 ![Licencia](https://img.shields.io/badge/licencia-MIT-green)
 
@@ -118,7 +118,7 @@ pytest -q
 ruff check --select E9,F secaudit.py tests
 ```
 
-La integración continua ejecuta las pruebas en Python 3.9, 3.11 y 3.13, una prueba de humo del comando instalado, y ruff y shellcheck sobre el código.
+La integración continua ejecuta las pruebas en Python 3.10, 3.12 y 3.13, una prueba de humo del comando instalado, y ruff y shellcheck sobre el código.
 
 ## Uso responsable
 

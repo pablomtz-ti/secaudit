@@ -7,7 +7,7 @@ name = "secaudit"
 dynamic = ["version"]
 description = "Auditor de seguridad defensiva para Linux con detección de cambios respecto a una línea base."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = "MIT"
 authors = [{ name = "Pablo Martínez" }]
 keywords = ["security", "audit", "hardening", "linux", "cis", "systemd"]
